@@ -1,6 +1,11 @@
+using Cw8.Infrastructure;
+using Cw8.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
-
-
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddDbContext<MasterContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
